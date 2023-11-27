@@ -1,1 +1,1 @@
-# LiteLoaderQQNT-for-Linux
+# LiteLoaderQQNT-for-Linux-depoly
