@@ -1,4 +1,4 @@
-# Linux下NoneBot使用ws插件连接NTQQ教程
+# Linux desktop下NoneBot使用ws插件连接NTQQ教程
 * 脚本基于此教程制作[Linux下NoneBot使用ws插件连接NTQQ教程](https://docs.qq.com/doc/DQW5OSWdIbWl3TEpx)
   
 ## 零，原理
