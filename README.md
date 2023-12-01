@@ -37,17 +37,17 @@ bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/s
 
 ## 以下为手动部署过程
 
-一、准备
-1.带GUI的电脑/服务器(不带GUI怎么运行NTQQ啊)，以及良好的网络环境
-2.NTQQ3.1.2_13107
-版本高于这个的需要自己降级，保证低于16183即可，这里放上3.1.2_13107版本的x86_64以及aarch64架构的deb包,需要的自取，Arch Linux可以参考这个PKGBUILD来自己makepkg，或者安装我发群里的打包好的，其他的发行版可以看看自己软件源/社区，这里就不多讲了。
-3.必要的一些工具
-1.Chronocat (提前自己下好)
+**一、准备**
+*1.带GUI的电脑/服务器(不带GUI怎么运行NTQQ啊)，以及良好的网络环境*
+*2.NTQQ3.1.2_13107
+版本高于这个的需要自己降级，保证低于16183即可，这里放上3.1.2_13107版本的x86_64以及aarch64架构的deb包,需要的自取，Arch Linux可以参考这个PKGBUILD来自己makepkg，或者安装我发群里的打包好的，其他的发行版可以看看自己软件源/社区，这里就不多讲了。*
+*3.必要的一些工具*
+*Chronocat (提前自己下好)
 
 
-二、教程
-1.部署TRSS-Yunzai ，部署位置视个人喜好而定
-# 克隆项目并安装 genshin miao-plugin TRSS-Plugin
+**二、部署**
+*1.部署TRSS-Yunzai ，部署位置视个人喜好而定*
+克隆项目并安装 genshin miao-plugin TRSS-Plugin
 ```bash
 git clone --depth 1 https://github.com/TimeRainStarSky/Yunzai
 cd Yunzai
@@ -56,24 +56,24 @@ git clone --depth 1 https://github.com/yoimiya-kokomi/miao-plugin plugins/miao-p
 git clone --depth 1 https://github.com/TimeRainStarSky/TRSS-Plugin plugins/TRSS-Plugin 
 git clone --depth 1 -b red https://github.com/xiaoye12123/ws-plugin plugins/ws-plugin
 ```
-# 安装 pnpm,需要root权限
+*2.安装 pnpm,需要root权限*
 ```bash
 sudo npm install -g pnpm
 ```
 
-# 安装依赖
+*3.安装依赖*
 ```bash
 pnpm i
 ```
 
-# 安装redis数据库
-这里以Arch为例，其他发行版安装自行谷歌
+**三、安装redis数据库**
+*1.这里以Arch为例，其他发行版安装自行谷歌*
 ```bash
 sudo pacman -S redis
 sudo systemctl enable --now redis.service # 可选
 ```
 
-2.按照 LiteLoaderQQNT 的README文件所示进行安装和修补package.json操作，这里推荐用下面的脚本进行安装
+*2.按照 LiteLoaderQQNT 的README文件所示进行安装和修补package.json操作，这里推荐用下面的脚本进行安装*
 ```bash
 #!/bin/bash
 
@@ -113,13 +113,15 @@ exit 0
 ```
 
 
-3.启动NTQQ ，登陆Bot账号，打开设置，不出意外的话就能看到LiteLoaderQQNT的相关配置界面，最小化NTQQ，将Chronocat插件解压后放到
+*3.获取token*
+启动QQ，登陆Bot账号，打开设置，不出意外的话就能看到LiteLoaderQQNT的相关配置界面，最小化NTQQ，将Chronocat插件解压后放到
 ～/Documents/LiteLoaderQQNT/plugins下
 
 去 ~/.chronocat/config文件夹下，将chronocat.yml文件里面red协议部分的token复制下来，并记住端口号，下面的步骤会用到
 
 
-4.在TRSS-Yunzai的目录下打开终端执行 node app 指令启动TRSS-Yunzai，接着重点来了，在终端 顺序 复制输入 以下指令：
+*4.配置chronocat连接*
+在TRSS-Yunzai的目录下打开终端执行 node app 指令启动TRSS-Yunzai，接着重点来了，在终端 **顺序** 复制输入 以下指令：
 ```bash
 #ws添加连接 
 chronocat,4
@@ -127,7 +129,8 @@ chronocat,4
 ```
 这里token和端口替换成上面复制的，重连间隔默认为5，最大重连次数默认为0,二者可不填
 
-5.私聊Bot，复制发送 以下指令：
+*5.设置机器人主人*
+私聊Bot，复制发送 以下指令：
 ```bash
 		#设置主人
 ```
@@ -136,7 +139,8 @@ chronocat,4
 
 
 
-6.私聊Bot，顺序 复制发送 以下指令：
+*6.配置nonebot连接*
+私聊Bot，**顺序** 复制发送 以下指令：
 ```bash
 		#ws添加连接
 		nonebot,1
@@ -148,7 +152,7 @@ chronocat,4
 7.新开终端/标签，启动你的Bot,完事
 
 
-这是一个ps，应该没人看吧：
+**这是一个ps，应该没人看吧：**
 ```bash
 CTRL + ALT + T #打开一个新终端
 CTRL + SHIFT + F4 #在对应目录下打开新终端
