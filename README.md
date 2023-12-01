@@ -139,7 +139,7 @@ exit 0
   ～/Documents/LiteLoaderQQNT/plugins下
 
   去 ~/.chronocat/config文件夹下，将chronocat.yml文件里面red协议部分的token复制下来，并记住端口号，下面的步骤会用到
-  ![token图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_frsktop-depoly/main/token.png)
+  ![token图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktok-depoly/main/token.png)
 
 * 2.配置chronocat连接
   
@@ -160,7 +160,7 @@ chronocat,4
 ```
   
   然后将终端中出现的验证码直接发给Bot，至此设置主人完毕
-  ![验证码图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/code.png)
+  ![验证码图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktok-depoly/main/code.png)
 
 * 4.配置nonebot连接
   
