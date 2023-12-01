@@ -137,7 +137,7 @@ exit 0
   
   启动QQ，登陆Bot账号，打开设置，不出意外的话就能看到LiteLoaderQQNT的相关配置界面，最小化NTQQ，将Chronocat插件解压后放到
   ～/Documents/LiteLoaderQQNT/plugins下
-
+![token图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/token.png)
   去 ~/.chronocat/config文件夹下，将chronocat.yml文件里面red协议部分的token复制下来，并记住端口号，下面的步骤会用到
 
 * 2.配置chronocat连接
