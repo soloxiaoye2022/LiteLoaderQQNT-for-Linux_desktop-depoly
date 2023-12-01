@@ -1,7 +1,4 @@
-# LiteLoaderQQNT-for-Linux-depoly
-
-
-## Linux下NoneBot使用ws插件连接NTQQ教程
+# Linux下NoneBot使用ws插件连接NTQQ教程
 
 **零，原理**
 * 原理就是用LiteLoaderQQNT取代官方的加载器，借助 Chronocat 插件获取到的token，用WS插件的red协议连接，最后再使用WS添加nonebot的反代地址，完成nonebot的连接(相当于一个账号上面运行了两个Bot)
