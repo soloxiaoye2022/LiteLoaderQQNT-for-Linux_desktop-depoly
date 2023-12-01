@@ -171,7 +171,7 @@ ws://127.0.0.1:8080/onebot/v11/ws #这里的端口视个人而定
 ```
   
   这里nonebot后面的1是ws反向连接，完整的连接类型如下：
-  1:反向ws连接 2:正向ws连接 3:gscore连接 4:red连接 5:正向http 6:反向http
+  1:反向ws连接  2:正向ws连接  3:gscore连接  4:red连接  5:正向http  6:反向http
 
 * 5.启动Yunzai机器人
 
