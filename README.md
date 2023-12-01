@@ -137,8 +137,9 @@ exit 0
   
   启动QQ，登陆Bot账号，打开设置，不出意外的话就能看到LiteLoaderQQNT的相关配置界面，最小化NTQQ，将Chronocat插件解压后放到
   ～/Documents/LiteLoaderQQNT/plugins下
-![token图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/token.png)
+
   去 ~/.chronocat/config文件夹下，将chronocat.yml文件里面red协议部分的token复制下来，并记住端口号，下面的步骤会用到
+  ![token图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/token.png)
 
 * 2.配置chronocat连接
   
@@ -157,11 +158,9 @@ chronocat,4
 ```bash
 #设置主人
 ```
-  ![验证码图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/code.png)
+  
   然后将终端中出现的验证码直接发给Bot，至此设置主人完毕
-
-
-
+  ![验证码图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/code.png)
 
 * 4.配置nonebot连接
   
