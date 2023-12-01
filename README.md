@@ -45,7 +45,8 @@ bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/s
 
 **二、部署**
 * 1.部署TRSS-Yunzai ，部署位置视个人喜好而定
-克隆项目并安装 genshin miao-plugin TRSS-Plugin
+  
+  克隆项目并安装 genshin miao-plugin TRSS-Plugin
 ```bash
 git clone --depth 1 https://github.com/TimeRainStarSky/Yunzai
 cd Yunzai
@@ -133,10 +134,9 @@ exit 0
 * 1.获取token
   
   启动QQ，登陆Bot账号，打开设置，不出意外的话就能看到LiteLoaderQQNT的相关配置界面，最小化NTQQ，将Chronocat插件解压后放到
-～/Documents/LiteLoaderQQNT/plugins下
+  ～/Documents/LiteLoaderQQNT/plugins下
 
-去 ~/.chronocat/config文件夹下，将chronocat.yml文件里面red协议部分的token复制下来，并记住端口号，下面的步骤会用到
-
+  去 ~/.chronocat/config文件夹下，将chronocat.yml文件里面red协议部分的token复制下来，并记住端口号，下面的步骤会用到
 
 * 2.配置chronocat连接
   
@@ -168,7 +168,7 @@ nonebot,1
 ws://127.0.0.1:**8080**/onebot/v11/ws #这里的端口视个人而定
 ```
   这里nonebot后面的1是ws反向连接，完整的连接类型如下：
-1:反向ws连接 2:正向ws连接 3:gscore连接 4:red连接 5:正向http 6:反向http
+  1:反向ws连接 2:正向ws连接 3:gscore连接 4:red连接 5:正向http 6:反向http
 
 * 5.启动Yunzai机器人
 
