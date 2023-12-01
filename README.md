@@ -37,9 +37,9 @@ bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/s
 **一、准备**
 * 1.带GUI的电脑/服务器(不带GUI怎么运行NTQQ啊)，以及良好的网络环境
 * 2.NTQQ3.1.2_13107
-版本高于这个的需要自己降级，保证低于16183即可，这里放上3.1.2_13107版本的x86_64以及aarch64架构的deb包,需要的自取，Arch Linux可以参考这个PKGBUILD来自己makepkg，或者安装我发群里的打包好的，其他的发行版可以看看自己软件源/社区，这里就不多讲了。
+版本高于这个的需要自己降级，保证低于16183即可，这里放上3.1.2_13107版本的[x86_64](https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_amd64.deb)以及[aarch64](https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_arm64.deb)架构的deb包,需要的自取，Arch Linux可以参考这个[PKGBUILD](https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=linuxqq&id=f7644776ee62fa20e5eb30d0b1ba832513c77793)来自己makepkg，或者安装我发群里的打包好的，其他的发行版可以看看自己软件源/社区，这里就不多讲了。
 * 3.必要的一些工具
-Chronocat (提前自己下好)
+[Chronocat](https://mirror.ghproxy.com/https://github.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/raw/main/LiteLoaderQQNT-Plugin-Chronocat.tar.gz) (提前自己下好)
 
 
 **二、部署**
@@ -89,7 +89,7 @@ systemctl enable redis-server
 
 **四、下载LiteLoaderQQNT并修补package.json**
 
-* 按照 LiteLoaderQQNT 的README文件所示进行安装和修补package.json操作，这里推荐用下面的脚本进行安装
+* 按照 LiteLoaderQQNT 的[README](https://github.com/LiteLoaderQQNT/LiteLoaderQQNT/blob/main/README.md)文件所示进行安装和修补package.json操作，这里推荐用下面的脚本进行安装
 ```bash
 #!/bin/bash
 
