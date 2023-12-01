@@ -54,7 +54,7 @@ check_nodejs() {
     nodejs_version=$(node -v| cut -d "." -f 1 | sed 's/[^0-9]//g') #获取nodejs版本
     npm_version=$(npm -v| cut -d "." -f 1 | sed 's/[^0-9]//g') #获取npm版本
     [[ -z "${nodejs_version}" ]] && echo -e "${Error} 当前系统未安装 nodejs ，请安装nodejs 16+，即将退出脚本。" && sleep 5 && exit 1
-    [[ ! ${nodejs_version} -ge 16 ]] && echo -e "${Error} 当前系统安装的nodejs ${nodejs_version} 版本过低，请安装nodejs 16+，即将退出脚本。" && sleep 5 && exit 1
+    [[  ${nodejs_version} -lt 16 ]] && echo -e "${Error} 当前系统安装的nodejs ${nodejs_version} 版本过低，请安装nodejs 16+，即将退出脚本。" && sleep 5 && exit 1
     [[  -z "${npm_version}" ]] && sudo apt install npm -y
     LinuxQQ_install
     #Redis_install
