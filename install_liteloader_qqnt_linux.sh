@@ -211,7 +211,7 @@ EOF
     type: 1
     reconnectInterval: 5
     maxReconnectAttempts: 0
-    uin: ${master_qq}
+    uin: ${bot_qq}
 EOF
     echo -e "${Info} 配置完成..."
     sudo chown -R ${user}:${groups} /opt/Yunzai/ #修改Yunzai所有者和用户组确方便图形界面用户修改配置
