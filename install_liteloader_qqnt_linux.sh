@@ -115,7 +115,7 @@ LiteLoader_install() {
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
     sudo -u ${user} nohup qq& > /dev/null 2>&1 & #启动LinuxQQ
-    disown #QQ进程与终端分离保持后台运行
+    nohup disown > /dev/null & #QQ进程与终端分离保持后台运行
     
     
     while true; do #获取token
