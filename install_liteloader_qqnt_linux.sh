@@ -229,9 +229,9 @@ set_bot_qq() {
 
 set_master_qq(){
     read -erp "请设置Bot主人QQ号:" masterqq
-    [[ -z "${master_qq}" ]] && echo -e "${Eroor} 主人 QQ号不能为空，请重新输入！" && set_master_qq
+    [[ -z "${master_qq}" ]] && echo -e "${Eroor} 主人 QQ号不能为空，请重新输入！" && master_qq
     expr $master_qq + 0 > /dev/null 2>&1
-    [[ $? -eq 1 ]] && echo -e "${Eroor} 主人 QQ号错误，请输入正确的Bot QQ号！" && set_master_qq
+    [[ $? -eq 1 ]] && echo -e "${Eroor} 主人 QQ号错误，请输入正确的Bot QQ号！" && master_qq
     echo -e "${Info} 主人 QQ号： $master_qq 设置成功..."
     sed -i "s/masterQQ:.*/masterQQ:\n  - \"$master_qq\"/" ./config/config/other.yaml
     sed -i "/master:/a\  - \"$bot_qq:$master_qq\"" ./config/config/other.yaml
@@ -240,6 +240,7 @@ set_master_qq(){
 
 
 Install() {
+    echo -e "${Info} 开始安装..."
     startTime=`date +%s`
     sudo -v
     check_root
