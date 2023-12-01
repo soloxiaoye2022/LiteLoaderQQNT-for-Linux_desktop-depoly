@@ -185,6 +185,10 @@ node app
 **这是一个ps，应该没人看吧：**
 ```bash
 CTRL + ALT + T #打开一个新终端
+```
+```bash
 CTRL + SHIFT + F4 #在对应目录下打开新终端
+```
+```bash
 CTRL + SHIFT + T #打开新标签
 ```
