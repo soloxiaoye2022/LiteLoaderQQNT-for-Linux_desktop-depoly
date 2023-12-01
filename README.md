@@ -130,6 +130,7 @@ exit 0
 
 **五、配置机器人**
 * 1.获取token
+  
 启动QQ，登陆Bot账号，打开设置，不出意外的话就能看到LiteLoaderQQNT的相关配置界面，最小化NTQQ，将Chronocat插件解压后放到
 ～/Documents/LiteLoaderQQNT/plugins下
 
@@ -137,6 +138,7 @@ exit 0
 
 
 * 2.配置chronocat连接
+  
 在TRSS-Yunzai的目录下打开终端执行 node app 指令启动TRSS-Yunzai，接着重点来了，在终端 **顺序** 复制输入 以下指令：
 ```bash
 #ws添加连接 
@@ -146,6 +148,7 @@ chronocat,4
 这里token和端口替换成上面复制的，重连间隔默认为5，最大重连次数默认为0,二者可不填
 
 * 3.设置机器人主人
+  
 私聊Bot，复制发送 以下指令：
 ```bash
 		#设置主人
@@ -156,6 +159,7 @@ chronocat,4
 
 
 * 4.配置nonebot连接
+  
 私聊Bot，**顺序** 复制发送 以下指令：
 ```bash
 		#ws添加连接
@@ -165,7 +169,9 @@ chronocat,4
 这里nonebot后面的1是ws反向连接，完整的连接类型如下：
 1:反向ws连接 2:正向ws连接 3:gscore连接 4:red连接 5:正向http 6:反向http
 
-* 5.新开终端/标签，启动你的Bot,完事
+* 5.启动Yunzai机器人
+
+新开终端/标签，启动你的Bot,完事
 ```bash
 node app
 ```
