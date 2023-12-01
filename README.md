@@ -22,7 +22,7 @@ sudo -i #可能需要输入当前用户的密码,如果已经是root用户登录
   
 ```bash
 
-bash <(curl -s -L https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/install_liteloader_qqnt_linux.sh)
+bash <(curl -s -L https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/install_liteloader_qqnt_linux.sh)
 
 ```
 
@@ -30,7 +30,7 @@ bash <(curl -s -L https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQN
 
 ```bash
 
-bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/install_liteloader_qqnt_linux.sh)
+bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/install_liteloader_qqnt_linux.sh)
 
 ```
 
@@ -42,7 +42,7 @@ bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/s
   
    *版本高于这个的需要自己降级，保证低于16183即可，这里放上3.1.2_13107版本的[x86_64](https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_amd64.deb)以及[aarch64](https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_arm64.deb)架构的deb包,需要的自取，Arch Linux可以参考这个[PKGBUILD](https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=linuxqq&id=f7644776ee62fa20e5eb30d0b1ba832513c77793)来自己makepkg，或者安装我发群里的打包好的，其他的发行版可以看看自己软件源/社区，这里就不多讲了。*
 * 3.必要的一些工具
-[Chronocat](https://mirror.ghproxy.com/https://github.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/raw/main/LiteLoaderQQNT-Plugin-Chronocat.tar.gz) (提前自己下好)
+[Chronocat](https://mirror.ghproxy.com/https://github.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/raw/main/LiteLoaderQQNT-Plugin-Chronocat.tar.gz) (提前自己下好)
 
 
 **二、部署**
@@ -139,7 +139,7 @@ exit 0
   ～/Documents/LiteLoaderQQNT/plugins下
 
   去 ~/.chronocat/config文件夹下，将chronocat.yml文件里面red协议部分的token复制下来，并记住端口号，下面的步骤会用到
-  ![token图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/token.png)
+  ![token图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_frsktop-depoly/main/token.png)
 
 * 2.配置chronocat连接
   
@@ -160,7 +160,7 @@ chronocat,4
 ```
   
   然后将终端中出现的验证码直接发给Bot，至此设置主人完毕
-  ![验证码图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/code.png)
+  ![验证码图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/code.png)
 
 * 4.配置nonebot连接
   
