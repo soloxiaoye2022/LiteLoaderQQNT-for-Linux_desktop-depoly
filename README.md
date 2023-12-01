@@ -34,6 +34,8 @@ bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/s
 
 ```
 
+
+
 ## 以下为手动部署过程
 
 **一、准备**
