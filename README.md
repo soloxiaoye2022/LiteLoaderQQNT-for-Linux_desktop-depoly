@@ -157,7 +157,7 @@ chronocat,4
 ```bash
 #设置主人
 ```
-  
+  ![验证码图片](https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux-depoly/main/code.png)
   然后将终端中出现的验证码直接发给Bot，至此设置主人完毕
 
 
