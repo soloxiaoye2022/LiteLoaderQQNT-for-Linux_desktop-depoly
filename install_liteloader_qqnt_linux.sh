@@ -13,7 +13,7 @@ Tip="${Purple_font_prefix}[注意]${Font_color_suffix}"
 
 #检查用户
 check_root(){
-    [[ $EUID != 0 ]] && echo -e "${Error} 当前用户没有ROOT权限，无法继续操作，请使用 ${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限(不可直接su登录root用户),执行后可能会提示输入当前账号的密码。" && exit 1 || echo -e "${Error} 当前为root用户，请先切换至sudo用户后输入${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限后再运行脚本。" && exit 1
+    [[ $EUID != 0 ]] && echo -e "${Error} 当前用户没有ROOT权限，无法继续操作，请使用 ${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限(不可直接su登录root用户),执行后可能会提示输入当前账号的密码。" && exit 1 #|| echo -e "${Error} 当前为root用户，请先切换至sudo用户后输入${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限后再运行脚本。" && exit 1
     [[ -z "${user}" ]] && echo -e "${Error} 当前脚本需要桌面环境运行，请安装图形界面并登录后再运行该脚本，即将退出脚本。" && exit 1
     
 }
