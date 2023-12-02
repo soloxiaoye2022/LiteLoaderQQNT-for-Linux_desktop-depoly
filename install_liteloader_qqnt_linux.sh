@@ -154,7 +154,7 @@ TRSS_Yunzai_install() {
 Redis_install() {
     echo -e "${Info} 开始安装 Redis..."
     if [[ ${release} == "ubuntu" ]];then
-        apt install redis-server -y$(printf \\r)
+        apt install redis-server -y
     elif [[ ${release} == "debian" ]]; then
         curl https://packages.redis.io/gpg | apt-key add -
         echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
