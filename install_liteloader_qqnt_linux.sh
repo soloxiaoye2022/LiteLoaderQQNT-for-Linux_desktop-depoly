@@ -121,7 +121,7 @@ LiteLoader_install() {
             token=$(cat /home/${user}/.chronocat/config/chronocat.yml | grep "token: '.*'" | head -n1 |cut -d "'" -f 2 )
             sleep 3
             if [ $token ]; then
-                Redis_install
+                Redis_install | tee /dev/tty
                 break
             fi
         fi
@@ -155,7 +155,6 @@ Redis_install() {
         apt upgrade -y
         echo -e "${Info} ceshi..."
         apt install redis-server -y
-        \r
     elif [[ ${release} == "debian" ]]; then
         curl https://packages.redis.io/gpg | apt-key add -
         echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
@@ -164,7 +163,6 @@ Redis_install() {
     fi
     systemctl start redis-server
     systemctl enable redis-server
-    \r
     TRSS_Yunzai_install
 
 
