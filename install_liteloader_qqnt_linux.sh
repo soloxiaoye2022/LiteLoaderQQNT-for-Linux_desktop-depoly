@@ -115,7 +115,7 @@ LiteLoader_install() {
     #screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
     #screen -S runqq -p 0 -X stuff "sudo -u ${user} qq& $(printf \\r)" #启动LinuxQQ
     #screen -S session_name -p 0 -X stuff 'command; screen -X -S session_name quit'$(printf \\r)
-    sudo -u ${user} nohup qq& > /dev/null 2>&1 | tee /dev/tty $(printf \\r) #启动LinuxQQ
+    sudo -u ${user} nohup qq& > /dev/null 2>&1 | tee /dev/tty #启动LinuxQQ
     #disown %1 > /dev/null 2>&1 #QQ进程与终端分离保持后台运行
     
     
@@ -124,7 +124,7 @@ LiteLoader_install() {
             token=$(cat /home/${user}/.chronocat/config/chronocat.yml | grep "token: '.*'" | head -n1 |cut -d "'" -f 2 )
             sleep 3
             if [ $token ]; then
-                Redis_install #| tee /dev/tty
+                echo -e "${Info} 获取token成功..."
                 break
             fi
         fi
@@ -154,7 +154,7 @@ TRSS_Yunzai_install() {
 Redis_install() {
     echo -e "${Info} 开始安装 Redis..."
     if [[ ${release} == "ubuntu" ]];then
-        apt install redis-server -y
+        apt install redis-server -y$(printf \\r)
     elif [[ ${release} == "debian" ]]; then
         curl https://packages.redis.io/gpg | apt-key add -
         echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
@@ -245,6 +245,7 @@ Install() {
     check_root
     check_sys
     check_nodejs
+    Redis_install
 
 }
 
