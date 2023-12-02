@@ -62,7 +62,7 @@ check_nodejs() {
 
 LinuxQQ_install() {
     sudo apt update && sudo apt upgrade -y
-    sudo apt-get install wget curl gnupg git -y #安装后续所需软件包
+    sudo apt-get install wget curl gnupg git screen -y #安装后续所需软件包
     echo -e "${Info} 开始安装 LinuxQQ..."
     cd /tmp/
     wget https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_${arch}.deb
@@ -112,12 +112,12 @@ LiteLoader_install() {
     echo -e "${Info} LinuxQQ 安装完成！即将启动QQ，请扫码登录Bot账号。如QQ未弹窗请手动启动QQ。" 
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
-    screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
-    screen -S runqq -p 0 -X stuff "sudo -u ${user} nohup qq& > /dev/null 2>&1 & $(printf \\r)" #启动LinuxQQ
+    #screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
+    #screen -S runqq -p 0 -X stuff "sudo -u ${user} nohup qq& > /dev/null 2>&1 & $(printf \\r)" #启动LinuxQQ
     #screen -S runqq -X stuff "cd $ZX_PATH && python3 bot.py^M"
     #screen -S session_name -p 0 -X stuff 'command; screen -X -S session_name quit'$(printf \\r)
-    #sudo -u ${user} nohup qq& > /dev/null 2>&1 | tee /dev/tty #启动LinuxQQ
-    #disown %1  #QQ进程与终端分离保持后台运行
+    sudo -u ${user} nohup qq& > /dev/null 2>&1 | tee /dev/tty #启动LinuxQQ
+    disown %1  #QQ进程与终端分离保持后台运行
     
     
     while true; do #获取token
@@ -155,8 +155,6 @@ TRSS_Yunzai_install() {
 Redis_install() {
     echo -e "${Info} 开始安装 Redis..."
     if [[ ${release} == "ubuntu" ]]; then 
-        apt update -y
-        apt upgrade -y
         echo -e "${Info} ceshi..."
         apt install redis-server -y
     elif [[ ${release} == "debian" ]]; then
@@ -252,4 +250,4 @@ Install() {
 
 }
 
-Install
+LiteLoader_install
