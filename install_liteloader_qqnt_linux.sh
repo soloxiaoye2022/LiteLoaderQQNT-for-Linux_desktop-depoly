@@ -114,7 +114,6 @@ LiteLoader_install() {
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
     #screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
     #screen -S runqq -p 0 -X stuff "sudo -u ${user} nohup qq& > /dev/null 2>&1 & $(printf \\r)" #启动LinuxQQ
-    #screen -S runqq -X stuff "cd $ZX_PATH && python3 bot.py^M"
     #screen -S session_name -p 0 -X stuff 'command; screen -X -S session_name quit'$(printf \\r)
     #sudo -u ${user} nohup qq& > /dev/null 2>&1 | tee /dev/tty #启动LinuxQQ
     disown %1  #QQ进程与终端分离保持后台运行
@@ -156,7 +155,7 @@ Redis_install() {
     echo -e "${Info} 开始安装 Redis..."
     if [[ ${release} == "ubuntu" ]]; then 
         echo -e "${Info} ceshi..."
-        apt install redis-server -y
+        apt install redis-server -y | tee /dev/tty
     elif [[ ${release} == "debian" ]]; then
         curl https://packages.redis.io/gpg | apt-key add -
         echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
