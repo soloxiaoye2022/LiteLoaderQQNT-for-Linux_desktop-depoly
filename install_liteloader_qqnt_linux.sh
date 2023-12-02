@@ -65,7 +65,6 @@ LinuxQQ_install() {
     sudo apt-get install wget curl gnupg git screen -y #安装后续所需软件包
     echo -e "${Info} 开始安装 LinuxQQ..."
     cd /tmp/
-    arch=amd64
     wget https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_${arch}.deb
 	sudo dpkg -i ./linuxqq_3.1.2-13107_${arch}.deb
 	if [ $? = 0 ] ; then
@@ -250,4 +249,4 @@ Install() {
 
 }
 
-LinuxQQ_install
+Install
