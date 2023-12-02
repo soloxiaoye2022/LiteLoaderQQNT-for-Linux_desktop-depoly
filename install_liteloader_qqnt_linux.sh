@@ -57,9 +57,7 @@ check_nodejs() {
     [[  ${nodejs_version} -lt 16 ]] && echo -e "${Error} 当前系统安装的nodejs ${nodejs_version} 版本过低，请安装nodejs 16+，即将退出脚本。" && sleep 5 && exit 1
     [[  -z "${npm_version}" ]] && sudo apt install npm -y
     LinuxQQ_install
-    #Redis_install
-
-
+    
 }
 
 LinuxQQ_install() {
@@ -155,12 +153,12 @@ Redis_install() {
     if [[ ${release} == "ubuntu" ]]; then 
         apt update -y
         apt upgrade -y
-        apt install redis-server -y
+        apt install redis-server -y > /dev/null &
     elif [[ ${release} == "debian" ]]; then
         curl https://packages.redis.io/gpg | apt-key add -
         echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
         apt-get update -y 
-        apt-get install redis-server -y
+        apt-get install redis-server -y > /dev/null &
     fi
     systemctl start redis-server
     systemctl enable redis-server
@@ -175,7 +173,7 @@ set_config() {
     sleep 2
     kill -TERM "$!"
     cat <<EOF >> /opt/Yunzai/plugins/ws-plugin/config/config/ws-config.yaml
-  
+    
   - name: chronocat
     address: 127.0.0.1:16530
     type: 4
