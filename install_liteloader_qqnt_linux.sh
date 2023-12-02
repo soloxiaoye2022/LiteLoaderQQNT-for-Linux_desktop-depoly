@@ -112,8 +112,8 @@ LiteLoader_install() {
     echo -e "${Info} LinuxQQ 安装完成！即将启动QQ，请扫码登录Bot账号。如QQ未弹窗请手动启动QQ。" 
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
-    sudo -u ${user} nohup qq& > /dev/null 2>&1 & #启动LinuxQQ
-    nohup disown > /dev/null & #QQ进程与终端分离保持后台运行
+    sudo -u ${user} nohup qq& > qq.log 2>&1 & #启动LinuxQQ
+    #nohup disown > /dev/null & #QQ进程与终端分离保持后台运行
     
     
     while true; do #获取token
@@ -153,12 +153,13 @@ Redis_install() {
     if [[ ${release} == "ubuntu" ]]; then 
         apt update -y
         apt upgrade -y
-        apt install redis-server -y > /dev/null &
+        echo -e "${Info} ceshi..."
+        apt install redis-server -y
     elif [[ ${release} == "debian" ]]; then
         curl https://packages.redis.io/gpg | apt-key add -
         echo "deb https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
         apt-get update -y 
-        apt-get install redis-server -y > /dev/null &
+        apt-get install redis-server -y
     fi
     systemctl start redis-server
     systemctl enable redis-server
