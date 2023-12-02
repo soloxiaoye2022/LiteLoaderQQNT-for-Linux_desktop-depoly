@@ -1,14 +1,11 @@
 # Linux desktop下NoneBot使用ws插件连接NTQQ教程
 * 脚本基于此教程制作[Linux下NoneBot使用ws插件连接NTQQ教程](https://docs.qq.com/doc/DQW5OSWdIbWl3TEpx)
-  
+[交流群948192110](https://jq.qq.com/?_wv=1027&k=rMWrhoIt)
+
 ## 零，原理
 * 原理就是用LiteLoaderQQNT取代官方的加载器，借助 Chronocat 插件获取到的token，用WS插件的red协议连接，最后再使用WS添加nonebot的反代地址，完成nonebot的连接(相当于一个账号上面运行了两个Bot)
 * 教程仅供参考，切勿直接照抄
-
-```bash
-ps -ef | grep -E " DISPLAY=$display " | awk '{print $6}'
-```
-
+  
 ## 自动部署脚本
 
 **偷懒可以用这个，也可以下载下来按照自己需求来改（脚本仅支持Ubuntu/Debian）**
