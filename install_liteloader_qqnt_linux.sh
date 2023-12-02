@@ -112,9 +112,9 @@ LiteLoader_install() {
     echo -e "${Info} LinuxQQ 安装完成！即将启动QQ，请扫码登录Bot账号。如QQ未弹窗请手动启动QQ。" 
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
-    screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
+    #screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
     #screen -S runqq -p 0 -X stuff "sudo -u ${user} qq& $(printf \\r)" #启动LinuxQQ
-    screen -S runqq -p 0 -X stuff 'sudo -u ${user} nohup qq& > /dev/null 2>&1 &; screen -X -S runqq quit'$(printf \\r)
+    #screen -S runqq -p 0 -X stuff 'sudo -u ${user} nohup qq& > /dev/null 2>&1 &; screen -X -S runqq quit'$(printf \\r)
     #sudo -u ${user} nohup qq& > /dev/null 2>&1 & #| tee /dev/tty #启动LinuxQQ
     #disown %1 > /dev/null 2>&1 #QQ进程与终端分离保持后台运行
     
