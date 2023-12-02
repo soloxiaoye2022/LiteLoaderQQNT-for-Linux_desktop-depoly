@@ -249,4 +249,4 @@ Install() {
 
 }
 
-LiteLoader_install
+LinuxQQ_install
