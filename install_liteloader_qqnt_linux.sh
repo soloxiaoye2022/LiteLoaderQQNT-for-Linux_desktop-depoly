@@ -115,7 +115,7 @@ LiteLoader_install() {
     #screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
     #screen -S runqq -p 0 -X stuff "sudo -u ${user} nohup qq& > /dev/null 2>&1 & $(printf \\r)" #启动LinuxQQ
     #screen -S session_name -p 0 -X stuff 'command; screen -X -S session_name quit'$(printf \\r)
-    #sudo -u ${user} nohup qq& > /dev/null 2>&1 | tee /dev/tty #启动LinuxQQ
+    sudo -u ${user} nohup qq& > /dev/null 2>&1 | tee /dev/tty #启动LinuxQQ
     disown %1  #QQ进程与终端分离保持后台运行
     
     
