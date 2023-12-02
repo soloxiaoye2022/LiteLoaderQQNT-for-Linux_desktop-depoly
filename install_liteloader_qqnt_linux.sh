@@ -142,11 +142,11 @@ TRSS_Yunzai_install() {
     git clone --depth 1 ${ghproxy}https://github.com/TimeRainStarSky/TRSS-Plugin plugins/TRSS-Plugin
     git clone -b red ${ghproxy}https://github.com/xiaoye12123/ws-plugin.git ./plugins/ws-plugin
     npm install -g pnpm && pnpm i
-    set_config
+    #set_config
     endTime=`date +%s`
     ((outTime=($endTime-$startTime)))
     echo -e "${Info} 安装用时 ${outTime} s ..."
-    node app
+    #node app
     
 
 }
