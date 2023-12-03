@@ -17,7 +17,7 @@ check_root(){
     [[ -z "${user}" ]] && echo -e "${Tip} 可能没有安装桌面环境，或者非sudo用户登录桌面环境，请检查当前环境是否满足条件"
     read -erp "如需继续安装请输入sudo用户名，否则直接 回车 或者输入 n 退出脚本:" sudo_num
     [[ -z "${sudo_num}" ]] || [[ "${sudo_num}" == 'n' ]] && echo -e "${Info} 您已取消操作." && exit 0
-    echo -e "${Info} 您输入的sudo用户名为 ${sudo_num} ,将为您继续安装..." && user=${sudo_num}
+    echo -e "${Info} 您输入的sudo用户名为 ${Green_background_prefix}${sudo_num}${Font_color_suffix} ,将为您继续安装..." && user=${sudo_num}
     
 }
 
