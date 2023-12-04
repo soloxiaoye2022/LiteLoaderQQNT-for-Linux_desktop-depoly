@@ -13,12 +13,15 @@ Tip="${Purple_font_prefix}[注意]${Font_color_suffix}"
 
 #检查用户
 check_root(){
-    [[ $EUID != 0 ]] && echo -e "${Error} 当前用户没有ROOT权限，无法继续操作，请使用 ${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限(不可直接su登录root用户),执行后可能会提示输入当前账号的密码。" && exit 1 #|| echo -e "${Error} 当前为root用户，请先切换至sudo用户后输入${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限后再运行脚本。" && exit 1
-    [[ -z "${user}" ]] && echo -e "${Tip} 可能没有安装桌面环境，或者非sudo用户登录桌面环境，请检查当前环境是否满足条件"
-    read -erp "如需继续安装请输入sudo用户名，否则直接 回车 或者输入 n 退出脚本:" sudo_num
-    [[ -z "${sudo_num}" ]] || [[ "${sudo_num}" == 'n' ]] && echo -e "${Info} 您已取消操作." && exit 0
-    echo -e "${Info} 您输入的sudo用户名为 ${Green_background_prefix}${sudo_num}${Font_color_suffix} ,将为您继续安装..." && user=${sudo_num}
-    
+    [[ $EUID != 0 ]] && echo -e "${Error} 当前用户没有ROOT权限，无法继续操作，请使用 ${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限(不可直接su登录root用户),执行后可能会提示输入当前账号的密码。" && exit 1 
+    #|| echo -e "${Error} 当前为root用户，请先切换至sudo用户后输入${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限后再运行脚本。" && exit 1
+    if [[ -z "${user}" ]];then
+        echo -e "${Tip} 可能没有安装桌面环境，或者非sudo用户登录桌面环境，请检查当前环境是否满足条件\n1.桌面环境\n2.sudo用户登录桌面\n3.使用sudo -i获取临时root权限" 
+        read -erp "如需继续安装请输入sudo用户名(不是root)，否则直接 回车 或者输入 n 退出脚本:" sudo_user
+        [[ -z "${sudo_user}" ]] || [[ "${sudo_user}" == 'n' ]] && echo -e "${Info} 您已取消操作." && exit 0
+        echo -e "${Info} 您输入的sudo用户名为 ${Green_background_prefix}${sudo_user}${Font_color_suffix} ,将为您继续安装..." && user=${sudo_user}
+    fi
+
 }
 
 #检查系统
@@ -27,12 +30,16 @@ check_sys() {
         release="debian" 
     elif grep -q -E -i "ubuntu" /etc/issue; then
         release="ubuntu"
+    elif grep -q -E -i "kali" /etc/issue; then
+        release="debian"
     elif grep -q -E -i "debian" /proc/version; then
         release="debian"
     elif grep -q -E -i "ubuntu" /proc/version; then
         release="ubuntu"
+    elif grep -q -E -i "kali" /proc/version; then
+        release="debian"
     else
-        read -erp "脚本暂不支持该Linux发行版，如您已自行makepkg并已安装LinuxQQ请输入 yes 并回车继续:" make_num
+        read -erp "脚本暂不支持该Linux发行版，如您已自行makepkg并已安装LinuxQQ请输入 ${Green_background_prefix}yes${Font_color_suffix} 并回车继续:" make_num
         [[ -z "${make_num}" ]] && echo -e "${Tip} 您已取消操作." && exit 1
         [[ ${make_num} == yes ]] && LiteLoader_install   
     fi
@@ -54,12 +61,18 @@ check_arch() {
 }
 
 check_nodejs() {
-    nodejs_version=$(node -v| cut -d "." -f 1 | sed 's/[^0-9]//g') #获取nodejs版本
-    npm_version=$(npm -v| cut -d "." -f 1 | sed 's/[^0-9]//g') #获取npm版本
-    [[ -z "${nodejs_version}" ]] && echo -e "${Error} 当前系统未安装 nodejs ，请安装nodejs 16+，即将退出脚本。" && sleep 5 && exit 1
-    [[  ${nodejs_version} -lt 16 ]] && echo -e "${Error} 当前系统安装的nodejs ${nodejs_version} 版本过低，请安装nodejs 16+，即将退出脚本。" && sleep 5 && exit 1
-    [[  -z "${npm_version}" ]] && sudo apt install npm -y
-    LinuxQQ_install
+    if [[ -x "$(command -v node)" ]];then #判断nodejs是否安装
+        nodejs_version=$(node -v | sed -E 's/^[^0-9]+([0-9]+\.[0-9]+).*$/\1/') #获取nodejs版本
+        if [[ $(echo  -e  "$nodejs_version\n16.14" | sort -V | head -n1) != "16.14" ]]; then # 使用sort -V命令比较两个版本
+            echo -e "${Error} 当前系统安装的 ${Green_font_prefix}nodejs ${nodejs_version}${Font_color_suffix} 版本过低，请安装${Green_background_prefix}nodejs 16+${Font_color_suffix}，即将退出脚本。" && sleep 5 && exit 1
+        fi
+    else  
+        nodejs_install
+    fi
+    #[[ -z "${nodejs_version}" ]] && echo -e "${Error} 当前系统未安装 ${Green_font_prefix}nodejs16${Font_color_suffix} ，请安装${Green_background_prefix}nodejs 16+${Font_color_suffix}，即将退出脚本。" && sleep 5 && exit 1
+    #[[  ${nodejs_version} -lt 16 ]] && 
+    #[[  -z "${npm_version}" ]] && sudo apt install npm -y
+    
     
 }
 
@@ -74,7 +87,8 @@ LinuxQQ_install() {
 	    echo -e "${Info} LinuxQQ 安装成功..."
         sudo rm -rf linuxqq_3.1.2-13107_${arch}.deb
 	else
-	    echo -e "${Error} LinuxQQ 安装失败，请截图错误日志加群反馈" && rm -rf sudo rm -rf linuxqq_3.1.2-13107_${arch}.deb && exit 1
+	    echo -e "${Error} LinuxQQ 安装失败，请截图错误日志加群反馈"
+        sudo rm -rf linuxqq_3.1.2-13107_${arch}.deb && exit 1
 	fi
     LiteLoader_install
 
@@ -144,8 +158,8 @@ TRSS_Yunzai_install() {
     git clone --depth 1 ${ghproxy}https://github.com/yoimiya-kokomi/miao-plugin plugins/miao-plugin
     git clone --depth 1 ${ghproxy}https://github.com/TimeRainStarSky/TRSS-Plugin plugins/TRSS-Plugin
     git clone -b red ${ghproxy}https://github.com/xiaoye12123/ws-plugin.git ./plugins/ws-plugin
-    npm install -g pnpm && pnpm i
-    set_config
+    npm install -g pnpm@8.11.0 && pnpm i
+    set_bot_qq
     endTime=`date +%s`
     ((outTime=($endTime-$startTime)))
     echo -e "${Info} 安装用时 ${outTime} s ..."
@@ -205,8 +219,6 @@ EOF
         fi
     fi
 
-    set_bot_qq
-
     cat <<EOF >> /opt/Yunzai/plugins/ws-plugin/config/config/ws-config.yaml
   - name: 真寻ws
     address: ${ws_address}
@@ -238,6 +250,17 @@ set_master_qq(){
     sed -i "s/masterQQ:.*/masterQQ:\n  - \"$master_qq\"/" ./config/config/other.yaml
     sed -i "/master:/a\  - \"$bot_qq:$master_qq\"" ./config/config/other.yaml
 
+}
+
+nodejs_install() {
+    echo -e "${Info} 开始安装nodejs..."
+    if [[ ${release} == "ubuntu" || ${release} == "debian" ]]; then 
+        curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+        sudo apt update
+        sudo apt install -y nodejs
+        sudo apt install npm -y && npm install npm@8.19.4 -g
+    fi
+    TRSS_Yunzai_install
 }
 
 
