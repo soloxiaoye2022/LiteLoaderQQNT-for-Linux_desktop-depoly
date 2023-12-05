@@ -66,6 +66,7 @@ check_nodejs() {
         if [[ $(echo  -e  "$nodejs_version\n16.14" | sort -V | head -n1) != "16.14" ]]; then # 使用sort -V命令比较两个版本
             echo -e "${Error} 当前系统安装的 ${Green_font_prefix}nodejs ${nodejs_version}${Font_color_suffix} 版本过低，请安装${Green_background_prefix}nodejs 16+${Font_color_suffix}，即将退出脚本。" && sleep 5 && exit 1
         fi
+        LinuxQQ_install
     else  
         nodejs_install
     fi
@@ -150,6 +151,7 @@ EOF
             fi
         fi
     done
+    Redis_install
 
 }
 
@@ -163,13 +165,9 @@ TRSS_Yunzai_install() {
     git clone --depth 1 ${ghproxy}https://github.com/TimeRainStarSky/TRSS-Plugin plugins/TRSS-Plugin
     git clone -b red ${ghproxy}https://github.com/xiaoye12123/ws-plugin.git ./plugins/ws-plugin
     npm install -g pnpm@8.11.0 && pnpm i
-    
-    endTime=`date +%s`
-    ((outTime=($endTime-$startTime)))
-    echo -e "${Info} 安装用时 ${outTime} s ..."
     node app > /dev/null 2>&1 & #生成配置文件
-    sleep 3 && kill -9 $!
     set_bot_qq
+    kill -9 $!
     node app
 
 }
@@ -243,15 +241,15 @@ set_bot_qq() {
     [[ -z "${bot_qq}" ]] && echo -e "${Eroor} Bot QQ号不能为空，请重新输入！" && set_bot_qq
     expr $bot_qq + 0 > /dev/null 2>&1
     [[ $? -eq 1 ]] && echo -e "${Eroor} Bot QQ号错误，请输入正确的Bot QQ号！" && set_bot_qq
-    echo -e "${Info} Bot QQ号: $bot_qq 设置成功..." && set_master_qq
+    echo -e "${Info} Bot QQ号: $bot_qq 设置成功..."
 
 }
 
 set_master_qq(){
-    read -erp "请设置Bot主人QQ号:" masterqq
-    [[ -z "${master_qq}" ]] && echo -e "${Eroor} 主人 QQ号不能为空，请重新输入！" && master_qq
+    read -erp "请设置Bot主人QQ号:" master_qq
+    [[ -z "${master_qq}" ]] && echo -e "${Eroor} 主人 QQ号不能为空，请重新输入！" && set_master_qq
     expr $master_qq + 0 > /dev/null 2>&1
-    [[ $? -eq 1 ]] && echo -e "${Eroor} 主人 QQ号错误，请输入正确的Bot QQ号！" && master_qq
+    [[ $? -eq 1 ]] && echo -e "${Eroor} 主人 QQ号错误，请输入正确的Bot QQ号！" && set_master_qq
     echo -e "${Info} 主人 QQ号： $master_qq 设置成功..."
     sed -i "s/masterQQ:.*/masterQQ:\n  - \"$master_qq\"/" ./config/config/other.yaml
     sed -i "/master:/a\  - \"$bot_qq:$master_qq\"" ./config/config/other.yaml
@@ -266,7 +264,7 @@ nodejs_install() {
         sudo apt install -y nodejs
         sudo apt install npm -y && npm install npm@8.19.4 -g
     fi
-    Redis_install
+    LinuxQQ_install
 }
 
 
@@ -277,6 +275,9 @@ Install() {
     check_root
     check_sys
     check_nodejs
+    endTime=`date +%s`
+    ((outTime=($endTime-$startTime)))
+    echo -e "${Info} 安装用时 ${outTime} s ..."
 
 }
 
