@@ -127,7 +127,6 @@ LiteLoader_install() {
     sudo tar -zxvf LiteLoaderQQNT-Plugin-Chronocat.tar.gz -C /home/${user}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
     sudo rm -rf LiteLoaderQQNT-Plugin-Chronocat.tar.gz
     sudo chown -R ${user}:${groups} /home/${user}/Documents/LiteLoaderQQNT/ #修改LiteLoaderQQNT所有者和用户组确保QQ有权限访问
-    echo -e "${Info} LinuxQQ 安装完成！即将启动QQ，请扫码登录Bot账号。如QQ未弹窗请手动启动QQ。" 
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
     cat > /tmp/start_qq.sh<<-EOF
@@ -136,10 +135,8 @@ sudo -u ${user} nohup qq& > /dev/null 2>&1 & #启动LinuxQQ
 disown %1 > /dev/null 2>&1 & #QQ进程与终端分离保持后台运行
 exit 0
 EOF
-    nohuo bash start_qq.sh > /dev/null 2>&1 &
-    #screen -AdmS runqq && screen -S runqq -p 0 -X stuff "export run_user=${user}$(printf \\r)" #创建screen会话并传递图形界面用户名
-    #screen -S runqq -p 0 -X stuff "sudo -u ${user} qq& $(printf \\r)" #启动LinuxQQ
-    #screen -S runqq -p 0 -X stuff 'sudo -u ${user} nohup qq& > /dev/null 2>&1 &; screen -X -S runqq quit'$(printf \\r)
+    echo -e "${Info} LinuxQQ 安装完成！即将启动QQ，请扫码登录Bot账号。如QQ未弹窗请手动启动QQ。" 
+    nohup bash /tmp/start_qq.sh > /dev/null 2>&1 &
     
     while true; do #获取token
         if [[ -e /home/${user}/.chronocat/config/chronocat.yml ]]; then
@@ -164,11 +161,19 @@ TRSS_Yunzai_install() {
     git clone --depth 1 ${ghproxy}https://github.com/yoimiya-kokomi/miao-plugin plugins/miao-plugin
     git clone --depth 1 ${ghproxy}https://github.com/TimeRainStarSky/TRSS-Plugin plugins/TRSS-Plugin
     git clone -b red ${ghproxy}https://github.com/xiaoye12123/ws-plugin.git ./plugins/ws-plugin
-    npm install -g pnpm@8.11.0 && pnpm i
+    npm install -g pnpm@8.11.0 && pnpm i || echo -e "${Error} Yunzai 安装失败,请反馈..." && exit 1
     node app > /dev/null 2>&1 & #生成配置文件
+    node_pid=$!
     set_bot_qq
-    kill -9 $!
-    node app
+    set_master_qq
+    set_config
+    kill -9 ${node_pid}
+    endTime=`date +%s`
+    ((outTime=($endTime-$startTime)))
+    echo -e "${Info} 安装用时 ${outTime} s ..."
+    echo -e "${Info} 3秒后启动 TRSS Yunzai ..." & sleep 3
+    screen -AdmS Yunzai && screen -S Yunzai -p 0 -X stuff "cd /opt/Yunzai && node app$(printf \\r)" #创建screen会话并启动Yunzai
+    screen -x Yunzai
 
 }
 
@@ -238,21 +243,19 @@ EOF
 
 set_bot_qq() {
     read -erp "请设置Bot QQ号:" bot_qq
-    [[ -z "${bot_qq}" ]] && echo -e "${Eroor} Bot QQ号不能为空，请重新输入！" && set_bot_qq
+    [[ -z "${bot_qq}" ]] && echo -e "${Eroor} Bot QQ号不能为空，请检查您的输入！" && set_bot_qq
     expr $bot_qq + 0 > /dev/null 2>&1
-    [[ $? -eq 1 ]] && echo -e "${Eroor} Bot QQ号错误，请输入正确的Bot QQ号！" && set_bot_qq
-    echo -e "${Info} Bot QQ号: $bot_qq 设置成功..."
+    [[ $? -eq 1 ]] && echo -e "${Eroor} Bot QQ号错误，请检查您的输入！" && set_bot_qq
+    sudo sed -i "s/masterQQ:.*/masterQQ:\n  - \"$master_qq\"/" /opt/Yunzai/config/config/other.yaml && echo -e "${Info} Bot QQ号: $bot_qq 设置成功..." || echo -e "${Eroor} 配置文件不存在，请检查 Yunzai 是否正确安装并启动生成配置文件！" && exit 1
 
 }
 
 set_master_qq(){
     read -erp "请设置Bot主人QQ号:" master_qq
-    [[ -z "${master_qq}" ]] && echo -e "${Eroor} 主人 QQ号不能为空，请重新输入！" && set_master_qq
+    [[ -z "${master_qq}" ]] && echo -e "${Eroor} 主人 QQ号不能为空，请检查您的输入！" && set_master_qq
     expr $master_qq + 0 > /dev/null 2>&1
-    [[ $? -eq 1 ]] && echo -e "${Eroor} 主人 QQ号错误，请输入正确的Bot QQ号！" && set_master_qq
-    echo -e "${Info} 主人 QQ号： $master_qq 设置成功..."
-    sed -i "s/masterQQ:.*/masterQQ:\n  - \"$master_qq\"/" ./config/config/other.yaml
-    sed -i "/master:/a\  - \"$bot_qq:$master_qq\"" ./config/config/other.yaml
+    [[ $? -eq 1 ]] && echo -e "${Eroor} 主人 QQ号错误，检查您的输入！" && set_master_qq
+    sudo sed -i "/master:/a\  - \"$bot_qq:$master_qq\"" /opt/Yunzai/config/config/other.yaml && echo -e "${Info} 主人 QQ号： $master_qq 设置成功..." || echo -e "${Eroor} 配置文件不存在，请检查 Yunzai 是否正确安装并启动生成配置文件！" && exit 1
 
 }
 
@@ -275,9 +278,6 @@ Install() {
     check_root
     check_sys
     check_nodejs
-    endTime=`date +%s`
-    ((outTime=($endTime-$startTime)))
-    echo -e "${Info} 安装用时 ${outTime} s ..."
 
 }
 
