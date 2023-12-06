@@ -245,7 +245,7 @@ set_bot_qq() {
     [[ -z "${bot_qq}" ]] && echo -e "${Eroor} Bot QQ号不能为空，请检查您的输入！" && set_bot_qq
     expr $bot_qq + 0 > /dev/null 2>&1
     [[ $? -eq 1 ]] && echo -e "${Eroor} Bot QQ号错误，请检查您的输入！" && set_bot_qq
-    sudo sed -i "s/masterQQ:.*/masterQQ:\n  - \"$master_qq\"/" /opt/Yunzai/config/config/other.yaml && echo -e "${Info} Bot QQ号: $bot_qq 设置成功..." || echo -e "${Eroor} 配置文件不存在，请检查 Yunzai 是否正确安装并启动生成配置文件！" && exit 1
+    sudo sed -i "s/masterQQ:.*/masterQQ:\n  - \"$master_qq\"/" /opt/Yunzai/config/config/other.yaml && echo -e "${Info} Bot QQ号: $bot_qq 设置成功..." #|| echo -e "${Eroor} 配置文件不存在，请检查 Yunzai 是否正确安装并启动生成配置文件！" && exit 1
 
 }
 
@@ -254,7 +254,7 @@ set_master_qq(){
     [[ -z "${master_qq}" ]] && echo -e "${Eroor} 主人 QQ号不能为空，请检查您的输入！" && set_master_qq
     expr $master_qq + 0 > /dev/null 2>&1
     [[ $? -eq 1 ]] && echo -e "${Eroor} 主人 QQ号错误，检查您的输入！" && set_master_qq
-    sudo sed -i "/master:/a\  - \"$bot_qq:$master_qq\"" /opt/Yunzai/config/config/other.yaml && echo -e "${Info} 主人 QQ号： $master_qq 设置成功..." || echo -e "${Eroor} 配置文件不存在，请检查 Yunzai 是否正确安装并启动生成配置文件！" && exit 1
+    sudo sed -i "/master:/a\  - \"$bot_qq:$master_qq\"" /opt/Yunzai/config/config/other.yaml && echo -e "${Info} 主人 QQ号： $master_qq 设置成功..." #|| echo -e "${Eroor} 配置文件不存在，请检查 Yunzai 是否正确安装并启动生成配置文件！" && exit 1
 
 }
 
