@@ -161,7 +161,7 @@ TRSS_Yunzai_install() {
     git clone --depth 1 ${ghproxy}https://github.com/yoimiya-kokomi/miao-plugin plugins/miao-plugin
     git clone --depth 1 ${ghproxy}https://github.com/TimeRainStarSky/TRSS-Plugin plugins/TRSS-Plugin
     git clone -b red ${ghproxy}https://github.com/xiaoye12123/ws-plugin.git ./plugins/ws-plugin
-    npm install -g pnpm@8.11.0 && pnpm i || echo -e "${Error} Yunzai 安装失败,请反馈..." && exit 1
+    npm install -g pnpm@8.11.0 && pnpm i #|| echo -e "${Error} Yunzai 安装失败,请反馈..." && exit 1
     node app > /dev/null 2>&1 & #生成配置文件
     node_pid=$!
     set_bot_qq
@@ -190,7 +190,6 @@ Redis_install() {
     systemctl start redis-server
     systemctl enable redis-server
     TRSS_Yunzai_install
-
 
 }
 
