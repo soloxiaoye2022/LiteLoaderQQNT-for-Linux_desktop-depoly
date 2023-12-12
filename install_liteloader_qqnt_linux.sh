@@ -270,7 +270,12 @@ set_master_qq(){
 
 nodejs_install() {
     echo -e "${Info} 开始安装nodejs..."
-    if [[ ${release} == "ubuntu" || ${release} == "debian" ]]; then 
+    if [[ ${release} == "ubuntu" ]]; then 
+        curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+        sudo apt update
+        sudo apt install -y nodejs
+        sudo apt install npm -y && npm install npm@8.19.4 -g
+    elif [[ ${release} == "debian" ]]; then 
         curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
         sudo apt update
         sudo apt install -y nodejs
