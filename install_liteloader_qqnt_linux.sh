@@ -17,7 +17,7 @@ check_root(){
     #|| echo -e "${Error} 当前为root用户，请先切换至sudo用户后输入${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限后再运行脚本。" && exit 1
     if [[ -z "${user}" ]];then
         echo -e "${Tip} 可能没有安装桌面环境，或者非sudo用户登录桌面环境，请检查当前环境是否满足条件\n1.桌面环境\n2.sudo用户登录桌面\n3.使用sudo -i获取临时root权限" 
-        read -erp "如需继续安装请输入sudo用户名(不是root)，否则直接 回车 或者输入 n 退出脚本:" sudo_user
+        read -erp "如需继续安装请输入sudo用户名(proot容器请输入root)，否则直接 回车 或者输入 n 退出脚本:" sudo_user
         [[ -z "${sudo_user}" ]] || [[ "${sudo_user}" == 'n' ]] && echo -e "${Info} 您已取消操作." && exit 0
         echo -e "${Info} 您输入的sudo用户名为 ${Green_background_prefix}${sudo_user}${Font_color_suffix} ,将为您继续安装..." && user=${sudo_user}
     fi
