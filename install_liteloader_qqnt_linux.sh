@@ -13,7 +13,7 @@ Tip="${Purple_font_prefix}[注意]${Font_color_suffix}"
 
 #检查用户
 check_root(){
-    [[ $EUID != 0 ]] && echo -e "${Error} 当前用户没有ROOT权限，无法继续操作，请使用 ${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限(不可直接su登录root用户),执行后可能会提示输入当前账号的密码。" && exit 1 
+    [[ $EUID != 0 ]] && echo -e "${Error} 当前用户没有ROOT权限，无法继续操作，请使用 ${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限,执行后可能会提示输入当前账号的密码。" && exit 1 
     #|| echo -e "${Error} 当前为root用户，请先切换至sudo用户后输入${Green_background_prefix}sudo -i${Font_color_suffix} 命令获取临时ROOT权限后再运行脚本。" && exit 1
     if [[ -z "${user}" ]];then
         echo -e "${Tip} 可能没有安装桌面环境，或者非sudo用户登录桌面环境，请检查当前环境是否满足条件\n1.桌面环境\n2.sudo用户登录桌面\n3.使用sudo -i获取临时root权限" 
@@ -21,7 +21,8 @@ check_root(){
         [[ -z "${sudo_user}" ]] || [[ "${sudo_user}" == 'n' ]] && echo -e "${Info} 您已取消操作." && exit 0
         echo -e "${Info} 您输入的sudo用户名为 ${Green_background_prefix}${sudo_user}${Font_color_suffix} ,将为您继续安装..." && user=${sudo_user}
     fi
-
+    work_dir="/home/${user}/"
+    [[ $EUID = 0 ]] && work_dir="/root/"
 }
 
 #检查系统
@@ -122,11 +123,11 @@ LiteLoader_install() {
     sudo sed -i 's|"main": "./app_launcher/index.js"|"main": "LiteLoaderQQNT"|' package.json
     cd /tmp/
     wget ${ghproxy}https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/LiteLoaderQQNT-Plugin-Chronocat.tar.gz
-    mkdir /home/${user}/Documents/LiteLoaderQQNT/ && mkdir /home/${user}/Documents/LiteLoaderQQNT/plugins/
-    mkdir /home/${user}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
-    sudo tar -zxvf LiteLoaderQQNT-Plugin-Chronocat.tar.gz -C /home/${user}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
+    mkdir /${work_dir}/Documents/LiteLoaderQQNT/ && mkdir /${work_dir}/Documents/LiteLoaderQQNT/plugins/
+    mkdir /${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
+    sudo tar -zxvf LiteLoaderQQNT-Plugin-Chronocat.tar.gz -C /${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
     sudo rm -rf LiteLoaderQQNT-Plugin-Chronocat.tar.gz
-    sudo chown -R ${user}:${groups} /home/${user}/Documents/LiteLoaderQQNT/ #修改LiteLoaderQQNT所有者和用户组确保QQ有权限访问
+    sudo chown -R ${user}:${groups} /${work_dir}/Documents/LiteLoaderQQNT/ #修改LiteLoaderQQNT所有者和用户组确保QQ有权限访问
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
     cat > /tmp/start_qq.sh<<-EOF
@@ -140,7 +141,7 @@ EOF
     
     while true; do #获取token
         if [[ -e /home/${user}/.chronocat/config/chronocat.yml ]]; then
-            token=$(cat /home/${user}/.chronocat/config/chronocat.yml | grep "token: '.*'" | head -n1 |cut -d "'" -f 2 )
+            token=$(cat /${work_dir}/.chronocat/config/chronocat.yml | grep "token: '.*'" | head -n1 |cut -d "'" -f 2 )
             sleep 3
             if [ $token ]; then
                 echo -e "${Info} 获取token成功..."
