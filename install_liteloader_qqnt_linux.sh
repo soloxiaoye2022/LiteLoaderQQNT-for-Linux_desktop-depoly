@@ -21,8 +21,8 @@ check_root(){
         [[ -z "${sudo_user}" ]] || [[ "${sudo_user}" == 'n' ]] && echo -e "${Info} 您已取消操作." && exit 0
         echo -e "${Info} 您输入的sudo用户名为 ${Green_background_prefix}${sudo_user}${Font_color_suffix} ,将为您继续安装..." && user=${sudo_user}
     fi
-    work_dir="/home/${user}/"
-    [[ $EUID = 0 ]] && work_dir="/root/"
+    work_dir="/home/${user}"
+    [[ $EUID = 0 ]] && work_dir="/root"
 }
 
 #检查系统
@@ -123,9 +123,9 @@ LiteLoader_install() {
     sudo sed -i 's|"main": "./app_launcher/index.js"|"main": "LiteLoaderQQNT"|' package.json
     cd /tmp/
     wget ${ghproxy}https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/LiteLoaderQQNT-Plugin-Chronocat.tar.gz
-    mkdir /${work_dir}/Documents/LiteLoaderQQNT/ && mkdir /${work_dir}/Documents/LiteLoaderQQNT/plugins/
-    mkdir /${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
-    sudo tar -zxvf LiteLoaderQQNT-Plugin-Chronocat.tar.gz -C /${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
+    mkdir ${work_dir}/Documents/LiteLoaderQQNT/ && mkdir ${work_dir}/Documents/LiteLoaderQQNT/plugins/
+    mkdir ${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
+    sudo tar -zxvf LiteLoaderQQNT-Plugin-Chronocat.tar.gz -C ${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
     sudo rm -rf LiteLoaderQQNT-Plugin-Chronocat.tar.gz
     sudo chown -R ${user}:${groups} /${work_dir}/Documents/LiteLoaderQQNT/ #修改LiteLoaderQQNT所有者和用户组确保QQ有权限访问
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
@@ -140,8 +140,8 @@ EOF
     nohup bash /tmp/start_qq.sh > /dev/null 2>&1 &
     
     while true; do #获取token
-        if [[ -e /home/${user}/.chronocat/config/chronocat.yml ]]; then
-            token=$(cat /${work_dir}/.chronocat/config/chronocat.yml | grep "token: '.*'" | head -n1 |cut -d "'" -f 2 )
+        if [[ -e ${work_dir}/.chronocat/config/chronocat.yml ]]; then
+            token=$(cat ${work_dir}/.chronocat/config/chronocat.yml | grep "token: '.*'" | head -n1 |cut -d "'" -f 2 )
             sleep 3
             if [ $token ]; then
                 echo -e "${Info} 获取token成功..."
