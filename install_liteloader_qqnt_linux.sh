@@ -281,11 +281,11 @@ nodejs_install() {
 }
 
 npm_install() {
-    if [[ ${release} == "ubuntu" || ${release} == "debian" ]]; then 
+    #if [[ ${release} == "ubuntu" || ${release} == "debian" ]]; then 
     sudo apt install npm -y && npm install npm@8.19.4 -g
-    fi
+    #fi
     LinuxQQ_install
-    
+
 }
 
 Install() {
