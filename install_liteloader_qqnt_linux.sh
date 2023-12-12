@@ -21,8 +21,21 @@ check_root(){
         [[ -z "${sudo_user}" ]] || [[ "${sudo_user}" == 'n' ]] && echo -e "${Info} 您已取消操作." && exit 0
         echo -e "${Info} 您输入的sudo用户名为 ${Green_background_prefix}${sudo_user}${Font_color_suffix} ,将为您继续安装..." && user=${sudo_user}
     fi
+    
+
+    if [ -d "/home/${user}/Documents" ];then
+        Documents="Documents"
+    elif [ -d "/${user}/Documents" ];then
+        Documents="Documents"
+    elif [ -d "/home/${user}/文档" ];then
+        Documents="文档"
+    elif [ -d "/${user}/文档" ];then
+        Documents="文档"
+    fi
+
     work_dir="/home/${user}"
     [[ $EUID = 0 ]] && work_dir="/root"
+
 }
 
 #检查系统
@@ -71,10 +84,6 @@ check_nodejs() {
     else  
         nodejs_install
     fi
-    #[[ -z "${nodejs_version}" ]] && echo -e "${Error} 当前系统未安装 ${Green_font_prefix}nodejs16${Font_color_suffix} ，请安装${Green_background_prefix}nodejs 16+${Font_color_suffix}，即将退出脚本。" && sleep 5 && exit 1
-    #[[  ${nodejs_version} -lt 16 ]] && 
-    #[[  -z "${npm_version}" ]] && sudo apt install npm -y
-    
     
 }
 
@@ -123,11 +132,11 @@ LiteLoader_install() {
     sudo sed -i 's|"main": "./app_launcher/index.js"|"main": "LiteLoaderQQNT"|' package.json
     cd /tmp/
     wget ${ghproxy}https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/LiteLoaderQQNT-Plugin-Chronocat.tar.gz
-    mkdir ${work_dir}/Documents/LiteLoaderQQNT/ && mkdir ${work_dir}/Documents/LiteLoaderQQNT/plugins/
-    mkdir ${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
-    sudo tar -zxvf LiteLoaderQQNT-Plugin-Chronocat.tar.gz -C ${work_dir}/Documents/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
+    mkdir ${work_dir}/${Documents}/LiteLoaderQQNT/ && mkdir ${work_dir}/${Documents}/LiteLoaderQQNT/plugins/
+    mkdir ${work_dir}/${Documents}/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
+    sudo tar -zxvf LiteLoaderQQNT-Plugin-Chronocat.tar.gz -C ${work_dir}/${Documents}/LiteLoaderQQNT/plugins/LiteLoaderQQNT-Plugin-Chronocat/
     sudo rm -rf LiteLoaderQQNT-Plugin-Chronocat.tar.gz
-    sudo chown -R ${user}:${groups} /${work_dir}/Documents/LiteLoaderQQNT/ #修改LiteLoaderQQNT所有者和用户组确保QQ有权限访问
+    sudo chown -R ${user}:${groups} /${work_dir}/${Documents}/LiteLoaderQQNT/ #修改LiteLoaderQQNT所有者和用户组确保QQ有权限访问
     sudo killall -HUP qq > /dev/null 2>&1 & #杀死QQ原有进程
     sudo chown -R ${user}:${groups} /opt/QQ/ #修改QQ所有者以及组确保图形界面可打开
     cat > /tmp/start_qq.sh<<-EOF
