@@ -81,6 +81,8 @@ check_nodejs() {
             echo -e "${Error} 当前系统安装的 ${Green_font_prefix}nodejs ${nodejs_version}${Font_color_suffix} 版本过低，请安装${Green_background_prefix}nodejs 16+${Font_color_suffix}，即将退出脚本。" && sleep 5 && exit 1
         fi
         LinuxQQ_install
+    elif [[ -x "$(command -v npm)" ]];then #判断npm是否安装
+        npm_install
     else  
         nodejs_install
     fi
@@ -282,6 +284,7 @@ npm_install() {
     if [[ ${release} == "ubuntu" || ${release} == "debian" ]]; then 
     sudo apt install npm -y && npm install npm@8.19.4 -g
     fi
+    LinuxQQ_install
     
 }
 
