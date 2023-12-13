@@ -173,7 +173,7 @@ TRSS_Yunzai_install() {
     git clone --depth 1 ${ghproxy}https://github.com/yoimiya-kokomi/miao-plugin plugins/miao-plugin
     git clone --depth 1 ${ghproxy}https://github.com/TimeRainStarSky/TRSS-Plugin plugins/TRSS-Plugin
     git clone -b red ${ghproxy}https://github.com/xiaoye12123/ws-plugin.git ./plugins/ws-plugin
-    npm install -g pnpm@8.11.0 && pnpm i
+    npm install -g pnpm@8.12.0 && pnpm i
     nohup node app > /dev/null 2>&1  #生成配置文件
     node_pid=$!
     set_bot_qq
