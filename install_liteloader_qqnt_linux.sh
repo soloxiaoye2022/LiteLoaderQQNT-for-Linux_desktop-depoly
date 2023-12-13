@@ -3,6 +3,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 ghproxy="https://mirror.ghproxy.com/"
+INODE_NUM=$(ls -ali / | sed '2!d' |awk {'print $1'})
 tty=$(ps -ef | grep -E " DISPLAY=$display " | awk '{print $6}') #获取tty
 user=$(who | grep ${tty} | cut -d ' ' -f1) #通过tty获取当前图形界面登录的用户
 groups=$(groups ${user} | cut -d ' ' -f3) #获取用户所在用户组
@@ -182,9 +183,14 @@ TRSS_Yunzai_install() {
     endTime=`date +%s`
     ((outTime=($endTime-$startTime)))
     echo -e "${Info} 安装用时 ${outTime} s ..."
-    echo -e "${Info} 3秒后启动 TRSS Yunzai ..." & sleep 3
-    screen -AdmS Yunzai && screen -S Yunzai -p 0 -X stuff "cd /opt/Yunzai && node app$(printf \\r)" #创建screen会话并启动Yunzai
-    screen -x Yunzai
+    echo -e "${Info} 启动 TRSS Yunzai ..."
+    if [ "$INODE_NUM" == '2' ]; then
+        screen -AdmS Yunzai && screen -S Yunzai -p 0 -X stuff "cd /opt/Yunzai && node app$(printf \\r)" #创建screen会话并启动Yunzai
+        screen -x Yunzai
+    else
+        nohup node app >> Yunzai.log 2>&1 &
+        tail -f -n 100 /opt/Yunzai/Yunzai.log
+    fi
 
 }
 
@@ -226,9 +232,8 @@ EOF
         echo -e "${Error} chronocat连接配置失败，请手动配置..."
     fi
     
-    read -erp "是否需要配置 真寻ws 连接?默认为n [ y/n ]:" nb_num
-    [[ -z "${nb_num}" ]] && echo -e "${Tip} 您已取消操作." && exit 1
-    if [[ ${nb_num} == 'y' || ${nb_num} == 'yes' ]]; then
+    read -erp "是否需要配置 真寻ws 连接?默认为y [ y/n ]:" nb_num
+    if [[ -z "${nb_num}" || ${nb_num} == 'yes' ]]; then
         read -erp "请输入真寻ws连接地址或者真寻ws连接端口:" ws_num
         expr $ws_num + 0 > /dev/null 2>&1
         if [ $? -eq 0 ]; then
@@ -236,6 +241,8 @@ EOF
         else
             ws_address=${ws_num} 
         fi
+    elif [[  ${nb_num} == 'y' ]]; then
+        echo -e "${Tip} 您已取消操作." 
     fi
 
     cat <<EOF >> /opt/Yunzai/plugins/ws-plugin/config/config/ws-config.yaml
