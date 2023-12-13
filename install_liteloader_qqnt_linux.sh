@@ -80,13 +80,13 @@ check_nodejs() {
         if [[ $(echo  -e  "$nodejs_version\n16.14" | sort -V | head -n1) != "16.14" ]]; then # 使用sort -V命令比较两个版本
             echo -e "${Error} 当前系统安装的 ${Green_font_prefix}nodejs ${nodejs_version}${Font_color_suffix} 版本过低，请安装${Green_background_prefix}nodejs 16+${Font_color_suffix}，即将退出脚本。" && sleep 5 && exit 1
         fi
-        LinuxQQ_install
+        [[ ! -x "$(command -v npm)" ]] && npm_install || LinuxQQ_install #判断npm是否安装
     else  
         nodejs_install
     fi
-    [[ ! -x "$(command -v npm)" ]] && npm_install #判断npm是否安装
-        
+         
 }
+
 
 LinuxQQ_install() {
     sudo apt update && sudo apt upgrade -y
@@ -276,13 +276,14 @@ nodejs_install() {
         sudo apt update
         sudo apt install -y nodejs
     fi
-    LinuxQQ_install
+    npm_install
 }
 
 npm_install() {
+    if [[ ! -x "$(command -v npm)" ]]; then 
     #if [[ ${release} == "ubuntu" || ${release} == "debian" ]]; then 
     sudo apt install npm -y && npm install npm@8.19.4 -g
-    #fi
+    fi
     LinuxQQ_install
 
 }
