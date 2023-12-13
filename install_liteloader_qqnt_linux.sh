@@ -112,12 +112,9 @@ LiteLoader_install() {
     git clone ${ghproxy}https://github.com/LiteLoaderQQNT/LiteLoaderQQNT.git
     cd /tmp/LiteLoaderQQNT
     sudo sed -i 's/url = /url = https:\/\/mirror.ghproxy.com\//g' ./.gitmodules
-    sudo sed -i '10s@"url":.*@"url": "https://mirror.ghproxy.com/https://github.com/LiteLoaderQQNT"@g' ./package.json
-    sudo sed -i '13s@"url":.*@"url": "https://mirror.ghproxy.com/https://github.com/LiteLoaderQQNT/LiteLoaderQQNT/issuses"@g' ./package.json
-    sudo sed -i '16s@"url":.*@"url": "https://mirror.ghproxy.com/https://github.com/LiteLoaderQQNT/LiteLoaderQQNT.git"@g' ./package.json
     git submodule sync
     git submodule update --init --recursive -f #添加子模块代理并从主仓库拉取子模块
-    cd /tmp/LiteLoaderQQNT/builtins
+    cd /tmp/LiteLoaderQQNT/builtins/
 
     for i in *
 	    do
@@ -292,6 +289,7 @@ nodejs_install() {
 npm_install() {
     if [[ ! -x "$(command -v npm)" ]]; then 
     #if [[ ${release} == "ubuntu" || ${release} == "debian" ]]; then 
+    npm config set registry https://registry.npm.taobao.org/ #设置npm淘宝源
     sudo apt install npm -y && npm install npm@8.19.4 -g
     fi
     LinuxQQ_install
