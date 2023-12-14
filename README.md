@@ -45,7 +45,7 @@ bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/s
    *版本高于这个的需要自己降级，保证低于16183即可，这里放上3.1.2_13107版本的[x86_64](https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_amd64.deb)以及[aarch64](https://dldir1.qq.com/qqfile/qq/QQNT/ad5b5393/linuxqq_3.1.2-13107_arm64.deb)架构的deb包,需要的自取，Arch Linux可以参考这个[PKGBUILD](https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=linuxqq&id=f7644776ee62fa20e5eb30d0b1ba832513c77793)来自己makepkg，或者安装我发群里的打包好的，其他的发行版可以看看自己软件源/社区，这里就不多讲了。*
 * 3.必要的一些工具
 [Chronocat](https://mirror.ghproxy.com/https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/LiteLoaderQQNT-Plugin-Chronocat.tar.gz) (提前自己下好)
-
+* 4.Windows也可以参照手动部署教程自己实现部署，这里提供一个[Windows_x64](https://dldir1.qq.com/qqfile/qq/QQNT/bef02a45/QQ9.9.2.16183_x64.exe)可用的安装包
 
 **二、部署**
 * 1.部署TRSS-Yunzai ，部署位置视个人喜好而定
