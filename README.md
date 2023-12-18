@@ -23,7 +23,7 @@ sudo -i #可能需要输入当前用户的密码,如果已经是root用户登录
   
 ```bash
 
-bash <(curl -s -L https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/install_liteloader_qqnt_linux.sh)
+bash <(curl -s -L https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/test/install_liteloader_qqnt_linux.sh)
 
 ```
 
