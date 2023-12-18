@@ -31,7 +31,7 @@ bash <(curl -s -L https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQN
 
 ```bash
 
-bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/main/install_liteloader_qqnt_linux.sh)
+bash <(curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/soloxiaoye2022/LiteLoaderQQNT-for-Linux_desktop-depoly/test/install_liteloader_qqnt_linux.sh)
 
 ```
 
